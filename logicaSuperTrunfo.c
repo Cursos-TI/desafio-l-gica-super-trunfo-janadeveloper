@@ -6,97 +6,120 @@
 // Siga os comentários para implementar cada parte do desafio.
 
 // Estrutura que representa uma carta de cidade
-struct Carta {
-    char codigo[20];
-    char cidade[50];
-    char estado[50];
-    int populacao;
-    float area;
-    float pib;
-    int pontos_turisticos;
-};
-
-// Função para exibir os dados de uma carta
-void exibir_dados(struct Carta carta) {
-    printf("Código: %s\n", carta.codigo);
-    printf("Cidade: %s\n", carta.cidade);
-    printf("Estado: %s\n", carta.estado);
-    printf("População: %d\n", carta.populacao);
-    printf("Área: %.2f km²\n", carta.area);
-    printf("PIB: %.2f milhões\n", carta.pib);
-    printf("Pontos Turísticos: %d\n", carta.pontos_turisticos);
-}
-
-// Função para comparar duas cartas de acordo com o atributo escolhido
-struct Carta comparar_cartas(struct Carta carta1, struct Carta carta2, int atributo) {
-    switch (atributo) {
-        case 1: // Comparação por população
-            return (carta1.populacao > carta2.populacao) ? carta1 : carta2;
-        case 2: // Comparação por área
-            return (carta1.area > carta2.area) ? carta1 : carta2;
-        case 3: // Comparação por PIB
-            return (carta1.pib > carta2.pib) ? carta1 : carta2;
-        case 4: // Comparação por pontos turísticos
-            return (carta1.pontos_turisticos > carta2.pontos_turisticos) ? carta1 : carta2;
-        case 5: // Comparação por densidade populacional
-            {
-                float densidade1 = carta1.populacao / carta1.area;
-                float densidade2 = carta2.populacao / carta2.area;
-                return (densidade1 < densidade2) ? carta1 : carta2;  // Menor densidade vence
-            }
-        default:
-            return carta1; // Retorna a carta 1 em caso de erro
-    }
-}
-
-// Função para cadastrar uma carta
-struct Carta cadastrar_carta() {
-    struct Carta carta;
-    printf("\nDigite o código da carta: ");
-    scanf("%s", carta.codigo);
-    printf("Digite o nome da cidade: ");
-    scanf(" %[^\n]", carta.cidade);  // Lê até o final da linha
-    printf("Digite o estado da cidade: ");
-    scanf(" %[^\n]", carta.estado);
-    printf("Digite a população da cidade: ");
-    scanf("%d", &carta.populacao);
-    printf("Digite a área da cidade (em km²): ");
-    scanf("%f", &carta.area);
-    printf("Digite o PIB da cidade (em milhões): ");
-    scanf("%f", &carta.pib);
-    printf("Digite o número de pontos turísticos: ");
-    scanf("%d", &carta.pontos_turisticos);
-    return carta;
-}
+#include <stdio.h>
 
 int main() {
+    // Definição das variáveis para armazenar as propriedades das cidades
+    char codigoA[20], codigoB[20];
+    char cidadeA[50], cidadeB[50];
+    char estadoA[50], estadoB[50];
+    int populacaoA, populacaoB;
+    float areaA, areaB, pibA, pibB;
+    int pontosTuristicosA, pontosTuristicosB;
+    
+    // Cadastro das Cartas:
+    // Solicitando dados da cidade 1
+    printf("Digite o código da cidade 1: ");
+    scanf("%s", codigoA);
+    printf("Digite o nome da cidade 1: ");
+    scanf(" %[^\n]", cidadeA);
+    printf("Digite o estado da cidade 1: ");
+    scanf(" %[^\n]", estadoA);
+    printf("Digite a população da cidade 1: ");
+    scanf("%d", &populacaoA);
+    printf("Digite a área da cidade 1 (em km²): ");
+    scanf("%f", &areaA);
+    printf("Digite o PIB da cidade 1 (em milhões): ");
+    scanf("%f", &pibA);
+    printf("Digite o número de pontos turísticos da cidade 1: ");
+    scanf("%d", &pontosTuristicosA);
+    
+    // Solicitando dados da cidade 2
+    printf("\nDigite o código da cidade 2: ");
+    scanf("%s", codigoB);
+    printf("Digite o nome da cidade 2: ");
+    scanf(" %[^\n]", cidadeB);
+    printf("Digite o estado da cidade 2: ");
+    scanf(" %[^\n]", estadoB);
+    printf("Digite a população da cidade 2: ");
+    scanf("%d", &populacaoB);
+    printf("Digite a área da cidade 2 (em km²): ");
+    scanf("%f", &areaB);
+    printf("Digite o PIB da cidade 2 (em milhões): ");
+    scanf("%f", &pibB);
+    printf("Digite o número de pontos turísticos da cidade 2: ");
+    scanf("%d", &pontosTuristicosB);
+    
+    // Comparação de Cartas:
+    int escolha;
+    printf("\nEscolha o atributo para a comparação:\n");
+    printf("1 - População\n2 - Área\n3 - PIB\n4 - Pontos Turísticos\n5 - Densidade Populacional\n");
+    scanf("%d", &escolha);
 
+    switch (escolha) {
+        case 1: // Comparar população
+            if (populacaoA > populacaoB) {
+                printf("\nA cidade %s tem maior população.\n", cidadeA);
+            } else if (populacaoA < populacaoB) {
+                printf("\nA cidade %s tem maior população.\n", cidadeB);
+            } else {
+                printf("\nAs duas cidades têm a mesma população.\n");
+            }
+            break;
 
-    printf("Bem-vindo ao desafio Super Trunfo - Países!\n");
+        case 2: // Comparar área
+            if (areaA > areaB) {
+                printf("\nA cidade %s tem maior área.\n", cidadeA);
+            } else if (areaA < areaB) {
+                printf("\nA cidade %s tem maior área.\n", cidadeB);
+            } else {
+                printf("\nAs duas cidades têm a mesma área.\n");
+            }
+            break;
 
-    // Cadastra as duas cartas
-    struct Carta carta1 = cadastrar_carta();
-    struct Carta carta2 = cadastrar_carta();
+        case 3: // Comparar PIB
+            if (pibA > pibB) {
+                printf("\nA cidade %s tem maior PIB.\n", cidadeA);
+            } else if (pibA < pibB) {
+                printf("\nA cidade %s tem maior PIB.\n", cidadeB);
+            } else {
+                printf("\nAs duas cidades têm o mesmo PIB.\n");
+            }
+            break;
 
-    // Solicita ao usuário o atributo para a comparação
-    int atributo;
-    printf("\nEscolha o atributo para a comparação (1 - populacao, 2 - area, 3 - pib, 4 - pontos_turisticos, 5 - densidade_populacional): ");
-    scanf("%d", &atributo);
+        case 4: // Comparar pontos turísticos
+            if (pontosTuristicosA > pontosTuristicosB) {
+                printf("\nA cidade %s tem mais pontos turísticos.\n", cidadeA);
+            } else if (pontosTuristicosA < pontosTuristicosB) {
+                printf("\nA cidade %s tem mais pontos turísticos.\n", cidadeB);
+            } else {
+                printf("\nAs duas cidades têm o mesmo número de pontos turísticos.\n");
+            }
+            break;
 
-    // Compara as cartas com base no atributo escolhido
-    struct Carta vencedor = comparar_cartas(carta1, carta2, atributo);
+        case 5: // Comparar densidade populacional
+            {
+                float densidadeA = populacaoA / areaA;
+                float densidadeB = populacaoB / areaB;
+                
+                if (densidadeA < densidadeB) { // Menor densidade vence
+                    printf("\nA cidade %s tem menor densidade populacional.\n", cidadeA);
+                } else if (densidadeA > densidadeB) {
+                    printf("\nA cidade %s tem menor densidade populacional.\n", cidadeB);
+                } else {
+                    printf("\nAs duas cidades têm a mesma densidade populacional.\n");
+                }
+            }
+            break;
 
-    // Exibe os resultados da comparação
-    printf("\nDados da Carta 1:\n");
-    exibir_dados(carta1);
-    printf("Dados da Carta 2:\n");
-    exibir_dados(carta2);
-
-    // Exibe quem venceu
-    printf("\nA carta vencedora é a de %s!\n", vencedor.cidade);
+        default:
+            printf("\nOpção inválida.\n");
+            break;
+    }
 
     return 0;
 }
+
       // Definição das variáveis para armazenar as propriedades das cidades
     // Você pode utilizar o código do primeiro desafio
 
